@@ -1,0 +1,12 @@
+package records;
+
+public record RoadInfo(
+    String roadName,
+    String roadQualifier,
+    int maxKmPerHour,
+    int numLanes,
+    String streetClass,
+    boolean oneWay,
+    double startMeasure,
+    double endMeasure
+) {}

@@ -33,10 +33,10 @@ DROP TABLE IF EXISTS neighbourhoodWard;
 DROP TABLE IF EXISTS neighbourhood;
 
 CREATE TABLE road (
-    name         VARCHAR (255)    NOT NULL,
-    qualifier    VARCHAR (255)    NOT NULL,
-    startMeasure DECIMAL (16, 12) NOT NULL,
-    endMeasure   DECIMAL (16, 12) NOT NULL,
+    name         VARCHAR (255)   NOT NULL,
+    qualifier    VARCHAR (255)   NOT NULL,
+    startMeasure DECIMAL (18, 6) NOT NULL,
+    endMeasure   DECIMAL (18, 6) NOT NULL,
     CHECK (startMeasure >= 0),
     CHECK (endMeasure >= 0),
     CHECK (startMeasure <= endMeasure),
@@ -57,13 +57,13 @@ CREATE TABLE roadPoint (
 );
 
 CREATE TABLE segment (
-    roadName      VARCHAR (255)    NOT NULL,
-    roadQualifier VARCHAR (255)    NOT NULL,
-    startMeasure  DECIMAL (16, 12) NOT NULL,
-    endMeasure    DECIMAL (16, 12) NOT NULL,
-    streetClass   VARCHAR (255)    NOT NULL,
-    numLanes      INT              NOT NULL,
-    oneWay        BIT              NOT NULL,
+    roadName      VARCHAR (255)   NOT NULL,
+    roadQualifier VARCHAR (255)   NOT NULL,
+    startMeasure  DECIMAL (18, 6) NOT NULL,
+    endMeasure    DECIMAL (18, 6) NOT NULL,
+    streetClass   VARCHAR (255)   NOT NULL,
+    numLanes      INT             NOT NULL,
+    oneWay        BIT             NOT NULL,
     CHECK (startMeasure >= 0),
     CHECK (endMeasure >= 0),
     CHECK (startMeasure <= endMeasure),
@@ -73,12 +73,12 @@ CREATE TABLE segment (
 );
 
 CREATE TABLE segmentPoint (
-    roadName            VARCHAR (255)    NOT NULL,
-    roadQualifier       VARCHAR (255)    NOT NULL,
-    segmentStartMeasure DECIMAL (16, 12) NOT NULL,
-    pointIndex          INT              NOT NULL,
-    latitude            REAL             NOT NULL,
-    longitude           REAL             NOT NULL,
+    roadName            VARCHAR (255)   NOT NULL,
+    roadQualifier       VARCHAR (255)   NOT NULL,
+    segmentStartMeasure DECIMAL (18, 6) NOT NULL,
+    pointIndex          INT             NOT NULL,
+    latitude            REAL            NOT NULL,
+    longitude           REAL            NOT NULL,
     CHECK (pointIndex >= 0),
     CHECK (latitude BETWEEN -90 AND 90),
     CHECK (longitude BETWEEN -180 AND 180),
@@ -87,11 +87,11 @@ CREATE TABLE segmentPoint (
 );
 
 CREATE TABLE speedLimit (
-    roadName      VARCHAR (255)    NOT NULL,
-    roadQualifier VARCHAR (255)    NOT NULL,
-    startMeasure  DECIMAL (16, 12) NOT NULL,
-    endMeasure    DECIMAL (16, 12) NOT NULL,
-    maxKmPerHour  INT              NOT NULL,
+    roadName      VARCHAR (255)   NOT NULL,
+    roadQualifier VARCHAR (255)   NOT NULL,
+    startMeasure  DECIMAL (18, 6) NOT NULL,
+    endMeasure    DECIMAL (18, 6) NOT NULL,
+    maxKmPerHour  INT             NOT NULL,
     CHECK (startMeasure >= 0),
     CHECK (endMeasure >= 0),
     CHECK (startMeasure <= endMeasure),
@@ -101,12 +101,12 @@ CREATE TABLE speedLimit (
 );
 
 CREATE TABLE speedLimitPoint (
-    roadName               VARCHAR (255)    NOT NULL,
-    roadQualifier          VARCHAR (255)    NOT NULL,
-    speedLimitStartMeasure DECIMAL (16, 12) NOT NULL,
-    pointIndex             INT              NOT NULL,
-    latitude               REAL             NOT NULL,
-    longitude              REAL             NOT NULL,
+    roadName               VARCHAR (255)   NOT NULL,
+    roadQualifier          VARCHAR (255)   NOT NULL,
+    speedLimitStartMeasure DECIMAL (18, 6) NOT NULL,
+    pointIndex             INT             NOT NULL,
+    latitude               REAL            NOT NULL,
+    longitude              REAL            NOT NULL,
     CHECK (pointIndex >= 0),
     CHECK (latitude BETWEEN -90 AND 90),
     CHECK (longitude BETWEEN -180 AND 180),
@@ -115,12 +115,12 @@ CREATE TABLE speedLimitPoint (
 );
 
 CREATE TABLE schoolZone (
-    roadName           VARCHAR (255)    NOT NULL,
-    roadQualifier      VARCHAR (255)    NOT NULL,
-    startMeasure       DECIMAL (16, 12) NOT NULL,
-    schoolName         VARCHAR (255)    NOT NULL,
-    effectiveDaysDesc  VARCHAR (255)    NOT NULL,
-    effectiveTimesDesc VARCHAR (255)    NOT NULL,
+    roadName           VARCHAR (255)   NOT NULL,
+    roadQualifier      VARCHAR (255)   NOT NULL,
+    startMeasure       DECIMAL (18, 6) NOT NULL,
+    schoolName         VARCHAR (255)   NOT NULL,
+    effectiveDaysDesc  VARCHAR (255)   NOT NULL,
+    effectiveTimesDesc VARCHAR (255)   NOT NULL,
     PRIMARY KEY (roadName, roadQualifier, startMeasure),
     FOREIGN KEY (roadName, roadQualifier, startMeasure) REFERENCES speedLimit (roadName, roadQualifier, startMeasure) ON DELETE CASCADE
 );

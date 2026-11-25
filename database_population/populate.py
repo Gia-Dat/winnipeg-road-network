@@ -1,12 +1,11 @@
-import configparser
 import re
 import pandas as pd
 import pyodbc
 
-DATA_FOLDER = "cleaned-data"
-DDL_FILE = "create-tables.sql"
-BATCH_SIZE = 5000
 
+DATA_FOLDER = "cleaned-data"
+DDL_FILE = "../sql/create-tables.sql"
+BATCH_SIZE = 5000
 
 def connect_db():
     # Read username and password from auth.cfg

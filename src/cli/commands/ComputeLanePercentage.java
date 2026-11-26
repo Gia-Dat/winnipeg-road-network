@@ -1,7 +1,7 @@
 package cli.commands;
-import cli.ExceptionHandler;
 import cli.ParsingHelper;
 import database_client.DBClient;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ComputeLanePercentage implements Command {
@@ -20,7 +20,7 @@ public class ComputeLanePercentage implements Command {
     }
 
     @Override
-    public void execute(Scanner in, DBClient db) {
+    public void execute(Scanner in, DBClient db) throws SQLException {
         String roadName = ParsingHelper.getString(
                 in, "Enter road name: "
         );
@@ -31,13 +31,9 @@ public class ComputeLanePercentage implements Command {
             in, "Enter number of lanes: "
         );
 
-        try {
-            Double percentageResult = db.getLaneCountPercentage(
+        Double percentageResult = db.getLaneCountPercentage(
                 roadName, roadQualifier, numLanes
-            );
-            System.out.printf("%.2f%%", percentageResult);
-        } catch (Exception e) {
-            ExceptionHandler.printErrorMsg(e);
-        }
+        );
+        System.out.printf("%.2f%%", percentageResult);
     }
 }

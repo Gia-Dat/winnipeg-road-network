@@ -15,6 +15,7 @@ public class CommandExecutor {
         new GetRoadInfo(),
         new ComputeLanePercentage(),
         new InsertRoad(),
+        new InsertSegment(),
         new DeleteAll()
     };
 

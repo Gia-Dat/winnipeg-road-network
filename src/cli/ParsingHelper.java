@@ -91,4 +91,29 @@ public class ParsingHelper {
 
         return number;
     }
+
+    public static boolean getBoolean(Scanner in, String prompt) {
+        String raw = null;
+        Boolean bool = null;
+        do {
+            if (raw != null) {
+                System.out.printf(
+                    "'%b' is not a valid boolean value. Try '0'/'false' or " +
+                    "'1'/'true' instead.\n",
+                    raw
+                );
+            }
+
+            System.out.print(prompt);
+            raw = in.nextLine().trim().toLowerCase();
+
+            if (raw.equals("0") || raw.equals("false")) {
+                bool = false;
+            } else if (raw.equals("1") || raw.equals("true")) {
+                bool = true;
+            }
+        } while (bool == null);
+
+        return bool;
+    }
 }

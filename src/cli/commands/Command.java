@@ -1,5 +1,6 @@
 package cli.commands;
 import database_client.DBClient;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -8,5 +9,5 @@ import java.util.Scanner;
 public interface Command {
     String getKeyword();
     String getDescription();
-    void execute(Scanner in, DBClient db);
+    void execute(Scanner in, DBClient db) throws SQLException;
 }

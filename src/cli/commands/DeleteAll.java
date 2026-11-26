@@ -1,6 +1,6 @@
 package cli.commands;
-import cli.ExceptionHandler;
 import database_client.DBClient;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class DeleteAll implements Command {
@@ -19,7 +19,7 @@ public class DeleteAll implements Command {
     }
 
     @Override
-    public void execute(Scanner in, DBClient db) {
+    public void execute(Scanner in, DBClient db) throws SQLException {
         System.out.printf(
             "[!] Type '%s' again to confirm that you want to delete ALL data: ",
             KEYWORD
@@ -27,13 +27,9 @@ public class DeleteAll implements Command {
 
         String confirmation =  in.nextLine().trim().toLowerCase();
         if (confirmation.equals(KEYWORD)) {
-            try {
-                db.deleteAll();
+            db.deleteAll();
 
-                System.out.println("All data has been deleted.");
-            } catch (Exception e) {
-                ExceptionHandler.printErrorMsg(e);
-            }
+            System.out.println("All data has been deleted.");
         } else {
             System.out.println("Operation cancelled.");
         }

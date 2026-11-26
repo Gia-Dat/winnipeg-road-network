@@ -2,7 +2,7 @@ package cli.commands;
 import cli.ExceptionHandler;
 import cli.ParsingHelper;
 import cli.printers.RoadInfoPrinter;
-import database_client.DBLoader;
+import database_client.DBClient;
 import records.RoadInfo;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,7 +25,7 @@ public class GetRoadInfo implements Command {
     }
 
     @Override
-    public void execute(Scanner in, DBLoader db) {
+    public void execute(Scanner in, DBClient db) {
         String roadName = ParsingHelper.getString(
                 in, "Enter road name: "
         );

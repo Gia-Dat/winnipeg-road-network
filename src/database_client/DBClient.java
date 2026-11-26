@@ -1,19 +1,41 @@
 package database_client;
 import records.RoadInfo;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
  * Executes SELECT queries and constructs records from the result sets.
  */
-public class DBLoader {
+public class DBClient {
     private final Connection db;
 
-    public DBLoader(Connection db) {
+    public DBClient(Connection db) {
         this.db = db;
+    }
+
+    public void deleteAll() throws SQLException {
+        final String query = """
+            DELETE FROM address;
+            DELETE FROM schoolZone;
+            DELETE FROM speedLimitPoint;
+            DELETE FROM speedLimit;
+            DELETE FROM segmentPoint;
+            DELETE FROM segment;
+            DELETE FROM roadPoint;
+            DELETE FROM road;
+            DELETE FROM plowZonePoint;
+            DELETE FROM plowZone;
+            DELETE FROM schoolDivisionPoint;
+            DELETE FROM schoolDivisionWard;
+            DELETE FROM schoolDivision;
+            DELETE FROM neighbourhoodPoint;
+            DELETE FROM neighbourhoodWard;
+            DELETE FROM neighbourhood;
+        """;
+
+        Statement statement = this.db.createStatement();
+
+        statement.execute(query);
     }
 
     public ArrayList<RoadInfo> getRoadInfo(

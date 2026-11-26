@@ -1,8 +1,10 @@
 package cli;
 import cli.commands.Command;
 import cli.commands.ComputeLanePercentage;
+import cli.commands.DeleteAll;
 import cli.commands.GetRoadInfo;
-import database_client.DBLoader;
+import database_client.DBClient;
+
 import java.util.Scanner;
 
 public class CommandExecutor {
@@ -15,14 +17,15 @@ public class CommandExecutor {
 
     private static final Command[] COMMANDS = new Command[]{
         new GetRoadInfo(),
-        new ComputeLanePercentage()
+        new ComputeLanePercentage(),
+        new DeleteAll()
     };
 
     /**
      * Prints a welcome message, then runs the main command loop until
      * the user enters 'quit'.
      */
-    public static void run(Scanner in, DBLoader db) {
+    public static void run(Scanner in, DBClient db) {
         printTitle("CITY OF WINNIPEG ROAD NETWORK");
         System.out.printf(
             "Welcome! Type '%s' for a list commands, or '%s' to quit.\n",

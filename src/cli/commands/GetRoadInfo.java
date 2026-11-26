@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GetRoadInfo implements Command {
-    private static final String KEYWORD = "rinfo";
+    private static final String KEYWORD = "roadInfo";
     private static final String DESCRIPTION =
         "Get detailed information by segment for a road";
 

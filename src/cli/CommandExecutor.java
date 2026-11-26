@@ -1,10 +1,6 @@
 package cli;
-import cli.commands.Command;
-import cli.commands.ComputeLanePercentage;
-import cli.commands.DeleteAll;
-import cli.commands.GetRoadInfo;
+import cli.commands.*;
 import database_client.DBClient;
-
 import java.util.Scanner;
 
 public class CommandExecutor {
@@ -18,6 +14,7 @@ public class CommandExecutor {
     private static final Command[] COMMANDS = new Command[]{
         new GetRoadInfo(),
         new ComputeLanePercentage(),
+        new InsertRoad(),
         new DeleteAll()
     };
 
@@ -48,7 +45,7 @@ public class CommandExecutor {
             // Find the command using its keyword
             Command toExecute = null;
             for (Command cmd : COMMANDS) {
-                if (rawInput.equals(cmd.getKeyword())) {
+                if (rawInput.equals(cmd.getKeyword().toLowerCase())) {
                     toExecute = cmd;
                 }
             }
@@ -61,7 +58,11 @@ public class CommandExecutor {
                 continue;
             }
 
-            toExecute.execute(in, db);
+            try {
+                toExecute.execute(in, db);
+            } catch (Exception e) {
+                ExceptionHandler.printErrorMsg(e);
+            }
         }
     }
 

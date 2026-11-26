@@ -13,6 +13,30 @@ public class DBClient {
         this.db = db;
     }
 
+    /**
+     * Inserts a road in the database.
+     */
+    public void insertRoad(
+        String name, String qualifier, Double startMeasure, Double endMeasure
+    ) throws SQLException {
+        final String query = """
+            INSERT INTO road
+                (name, qualifier, startMeasure, endMeasure)
+            VALUES (?, ?, ?, ?)
+        """;
+
+        PreparedStatement statement = this.db.prepareStatement(query);
+        statement.setString(1, name);
+        statement.setString(2, qualifier);
+        statement.setDouble(3, startMeasure);
+        statement.setDouble(4, endMeasure);
+
+        statement.execute();
+    }
+
+    /**
+     * Deletes all data from all tables.
+     */
     public void deleteAll() throws SQLException {
         final String query = """
             DELETE FROM address;

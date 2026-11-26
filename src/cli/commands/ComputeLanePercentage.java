@@ -5,7 +5,7 @@ import database_client.DBClient;
 import java.util.Scanner;
 
 public class ComputeLanePercentage implements Command {
-    private static final String KEYWORD = "lanepercent";
+    private static final String KEYWORD = "lanePercent";
     private static final String DESCRIPTION =
         "Computes the percentage of a given road with a specific number of lanes";
 
@@ -27,15 +27,9 @@ public class ComputeLanePercentage implements Command {
         String roadQualifier = ParsingHelper.getString(
                 in, "Enter road qualifier: "
         );
-
-        Integer numLanes = null;
-        do {
-            if (numLanes != null) {
-                System.out.println("The number of lanes should be positive.");
-            }
-
-            numLanes = ParsingHelper.getInt(in, "Enter number of lanes: ");
-        } while (numLanes < 1);
+        int numLanes = ParsingHelper.getPositiveInt(
+            in, "Enter number of lanes: "
+        );
 
         try {
             Double percentageResult = db.getLaneCountPercentage(

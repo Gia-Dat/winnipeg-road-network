@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * Executes SELECT queries and returns the result sets.
+ * Executes SELECT queries and constructs records from the result sets.
  */
 public class DBLoader {
     private final Connection db;
@@ -17,10 +17,10 @@ public class DBLoader {
     }
 
     public ArrayList<RoadInfo> getRoadInfo(
-        String roadName, String roadQualifier
+        String roadName
     ) throws SQLException {
         final String query = """
-            SELECT
+            SELECT DISTINCT TOP 30
                 segment.roadName AS roadName,
                 segment.roadQualifier AS roadQualifier,
                 speedLimit.maxKmPerHour,
@@ -36,17 +36,16 @@ public class DBLoader {
                 segment.roadQualifier = speedLimit.roadQualifier AND
                 segment.startMeasure < speedLimit.endMeasure AND
                 speedLimit.startMeasure < segment.endMeasure
-            WHERE segment.roadName = ? AND segment.roadQualifier = ?
-            ORDER BY startMeasure;
+            WHERE segment.roadName = ?
+            ORDER BY startMeasure
         """;
 
         PreparedStatement statement = this.db.prepareStatement(query);
         statement.setString(1, roadName);
-        statement.setString(2, roadQualifier);
 
         ResultSet results = statement.executeQuery();
 
-        ArrayList<RoadInfo> roadInfos = new ArrayList<RoadInfo>();
+        ArrayList<RoadInfo> roadInfos = new ArrayList<>();
         while (results.next()) {
             roadInfos.add(new RoadInfo(
                     results.getString("roadName"),
@@ -82,7 +81,7 @@ public class DBLoader {
             		/ (road.endMeasure - road.startMeasure) AS percentageOfRoad
             	FROM road
             	LEFT JOIN segment ON\s
-            		road.name = segment.roadName AND\s
+            		road.name = segment.roadName AND
             		road.qualifier = segment.roadQualifier
             )
             SELECT SUM(percentageOfRoad) AS totalPercentage
@@ -99,6 +98,10 @@ public class DBLoader {
         statement.setInt(3, numLanes);
 
         ResultSet results = statement.executeQuery();
+
+        if(!results.next()) {
+            return 0.00;
+        }
 
         return results.getDouble("totalPercentage");
     }

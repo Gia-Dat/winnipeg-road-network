@@ -27,7 +27,7 @@ public class RoadInfoPrinter {
                     roadInfo.streetClass(),
                     Boolean.toString(roadInfo.oneWay()),
                     Double.toString(roadInfo.startMeasure()),
-                    Double.toString(roadInfo.endMeasure())
+                    Double.toString(roadInfo.endMeasure()),
                 }
         );
     }

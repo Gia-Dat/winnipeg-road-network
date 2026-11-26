@@ -1,11 +1,11 @@
 package cli.commands;
-import cli.ExceptionHandler;
 import cli.ParsingHelper;
-import database_client.DBLoader;
+import database_client.DBClient;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ComputeLanePercentage implements Command {
-    private static final String KEYWORD = "lanepercent";
+    private static final String KEYWORD = "lanePercent";
     private static final String DESCRIPTION =
         "Computes the percentage of a given road with a specific number of lanes";
 
@@ -20,30 +20,20 @@ public class ComputeLanePercentage implements Command {
     }
 
     @Override
-    public void execute(Scanner in, DBLoader db) {
+    public void execute(Scanner in, DBClient db) throws SQLException {
         String roadName = ParsingHelper.getString(
                 in, "Enter road name: "
         );
         String roadQualifier = ParsingHelper.getString(
                 in, "Enter road qualifier: "
         );
+        int numLanes = ParsingHelper.getPositiveInt(
+            in, "Enter number of lanes: "
+        );
 
-        Integer numLanes = null;
-        do {
-            if (numLanes != null) {
-                System.out.println("The number of lanes should be positive.");
-            }
-
-            numLanes = ParsingHelper.getInt(in, "Enter number of lanes: ");
-        } while (numLanes < 1);
-
-        try {
-            Double percentageResult = db.getLaneCountPercentage(
+        Double percentageResult = db.getLaneCountPercentage(
                 roadName, roadQualifier, numLanes
-            );
-            System.out.printf("%.2f%%", percentageResult);
-        } catch (Exception e) {
-            ExceptionHandler.printErrorMsg(e);
-        }
+        );
+        System.out.printf("%.2f%%", percentageResult);
     }
 }

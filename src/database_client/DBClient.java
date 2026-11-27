@@ -64,6 +64,190 @@ public class DBClient {
     }
 
     /**
+     * Inserts a speed limit into the database for a given road segment.
+     */
+    public void insertSpeedLimit(
+        String roadName, String roadQualifier, Double startMeasure,
+        Double endMeasure, int maxKmPerHour
+    ) throws SQLException {
+        final String query = """
+            INSERT INTO speedLimit
+                (roadName, roadQualifier, startMeasure, endMeasure, maxKmPerHour)
+            VALUES
+                (?, ?, ?, ?, ?)
+        """;
+
+        PreparedStatement statement = this.db.prepareStatement(query);
+        statement.setString(1, roadName);
+        statement.setString(2, roadQualifier);
+        statement.setDouble(3, startMeasure);
+        statement.setDouble(4, endMeasure);
+        statement.setInt(5, maxKmPerHour);
+
+        statement.execute();
+    }
+
+    /**
+     * Inserts a school zone into the database for a given speed limit.
+     */
+    public void insertSchoolZone(
+        String roadName, String roadQualifier, Double startMeasure,
+        String schoolName, String effectiveDaysDesc, String effectiveTimesDesc
+    ) throws SQLException {
+        final String query = """
+            INSERT INTO schoolZone
+                (roadName, roadQualifier, startMeasure, schoolName, 
+                 effectiveDaysDesc, effectiveTimesDesc)
+            VALUES
+                (?, ?, ?, ?, ?, ?)
+        """;
+
+        PreparedStatement statement = this.db.prepareStatement(query);
+        statement.setString(1, roadName);
+        statement.setString(2, roadQualifier);
+        statement.setDouble(3, startMeasure);
+        statement.setString(4, schoolName);
+        statement.setString(5, effectiveDaysDesc);
+        statement.setString(6, effectiveTimesDesc);
+
+        statement.execute();
+    }
+
+    /**
+     * Inserts a plow zone into the database.
+     */
+    public void insertPlowZone(
+        String zoneID, String name
+    ) throws  SQLException {
+        final String query = """
+            INSERT INTO plowZone
+                (zoneID, name)
+            VALUES
+                (?, ?)
+        """;
+
+        PreparedStatement statement = this.db.prepareStatement(query);
+        statement.setString(1, zoneID);
+        statement.setString(2, name);
+
+        statement.execute();
+    }
+
+    /**
+     * Inserts a school division into the database.
+     */
+    public void insertSchoolDivision(
+        String name, String websiteUrl
+    ) throws SQLException {
+        final String query = """
+            INSERT INTO schoolDivision
+                (name, websiteUrl)
+            VALUES
+                (?, ?)
+        """;
+
+        PreparedStatement statement = this.db.prepareStatement(query);
+        statement.setString(1, name);
+        statement.setString(2, websiteUrl);
+
+        statement.execute();
+    }
+
+    /**
+     * Inserts a school division ward into the database for a given school
+     * division.
+     */
+    public void insertSchoolDivisionWard(
+        String divisionName, int wardID
+    ) throws SQLException {
+        final String query = """
+            INSERT INTO schoolDivisionWard
+                (schoolDivisionName, wardID)
+            VALUES
+                (?, ?)
+        """;
+
+        PreparedStatement statement = this.db.prepareStatement(query);
+        statement.setString(1, divisionName);
+        statement.setInt(2, wardID);
+
+        statement.execute();
+    }
+
+    /**
+     * Inserts a neighbourhood into the database.
+     */
+    public void insertNeighbourhood(
+        String neighbourhoodName
+    ) throws SQLException {
+        final String query = """
+            INSERT INTO neighbourhood
+                (name)
+            VALUES
+                (?)
+        """;
+
+        PreparedStatement statement = this.db.prepareStatement(query);
+        statement.setString(1, neighbourhoodName);
+
+        statement.execute();
+    }
+
+    /**
+     * Inserts a neighbourhood ward into the database for a given neighbourhood.
+     */
+    public void insertNeighbourhoodWard(
+        String neighbourhoodName, int wardID
+    ) throws SQLException {
+        final String query = """
+            INSERT INTO neighbourhoodWard
+                (neighbourhoodName, wardID)
+            VALUES
+                (?, ?)
+        """;
+
+        PreparedStatement statement = this.db.prepareStatement(query);
+        statement.setString(1, neighbourhoodName);
+        statement.setInt(2, wardID);
+
+        statement.execute();
+    }
+
+    /**
+     * Inserts an address into the database for a given road, neighbourhood
+     * ward, school division ward, and plow zone.
+     */
+    public void insertAddress(
+        int streetNumber, Double latitude, Double longitude,
+        String roadName, String roadQualifier, String neighbourhood,
+        int neighbourhoodWard, String schoolDivision, int schoolDivisionWard,
+        String plowZone
+    ) throws SQLException {
+        final String query = """
+            INSERT INTO address
+                (streetNumber, latitude, longitude, roadName, roadQualifier,
+                 neighbourhood, neighbourhoodWard, schoolDivision, schoolDivisionWard,
+                 plowZone)
+            VALUES
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """;
+
+        PreparedStatement statement = this.db.prepareStatement(query);
+        statement.setInt(1, streetNumber);
+        statement.setDouble(2, latitude);
+        statement.setDouble(3, longitude);
+        statement.setString(4, roadName);
+        statement.setString(5, roadQualifier);
+        statement.setString(6, neighbourhood);
+        statement.setInt(7, neighbourhoodWard);
+        statement.setString(8, schoolDivision);
+        statement.setInt(9, schoolDivisionWard);
+        statement.setString(10, plowZone);
+
+        statement.execute();
+    }
+
+    /**
      * Deletes all data from all tables.
      */
     public void deleteAll() throws SQLException {

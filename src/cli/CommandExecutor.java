@@ -1,8 +1,6 @@
 package cli;
-import cli.commands.Command;
-import cli.commands.ComputeLanePercentage;
-import cli.commands.GetRoadInfo;
-import database_client.DBLoader;
+import cli.commands.*;
+import database_client.DBClient;
 import java.util.Scanner;
 
 public class CommandExecutor {
@@ -15,14 +13,17 @@ public class CommandExecutor {
 
     private static final Command[] COMMANDS = new Command[]{
         new GetRoadInfo(),
-        new ComputeLanePercentage()
+        new ComputeLanePercentage(),
+        new InsertRoad(),
+        new InsertSegment(),
+        new DeleteAll()
     };
 
     /**
      * Prints a welcome message, then runs the main command loop until
      * the user enters 'quit'.
      */
-    public static void run(Scanner in, DBLoader db) {
+    public static void run(Scanner in, DBClient db) {
         printTitle("CITY OF WINNIPEG ROAD NETWORK");
         System.out.printf(
             "Welcome! Type '%s' for a list commands, or '%s' to quit.\n",
@@ -45,7 +46,7 @@ public class CommandExecutor {
             // Find the command using its keyword
             Command toExecute = null;
             for (Command cmd : COMMANDS) {
-                if (rawInput.equals(cmd.getKeyword())) {
+                if (rawInput.equals(cmd.getKeyword().toLowerCase())) {
                     toExecute = cmd;
                 }
             }
@@ -58,7 +59,11 @@ public class CommandExecutor {
                 continue;
             }
 
-            toExecute.execute(in, db);
+            try {
+                toExecute.execute(in, db);
+            } catch (Exception e) {
+                ExceptionHandler.printErrorMsg(e);
+            }
         }
     }
 

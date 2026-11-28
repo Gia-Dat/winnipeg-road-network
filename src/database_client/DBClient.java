@@ -28,13 +28,14 @@ public class DBClient {
             VALUES (?, ?, ?, ?)
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, name);
-        statement.setString(2, qualifier);
-        statement.setDouble(3, startMeasure);
-        statement.setDouble(4, endMeasure);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, name);
+            statement.setString(2, qualifier);
+            statement.setDouble(3, startMeasure);
+            statement.setDouble(4, endMeasure);
 
-        statement.execute();
+            statement.execute();
+        }
     }
 
     /**
@@ -51,16 +52,17 @@ public class DBClient {
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, roadName);
-        statement.setString(2, roadQualifier);
-        statement.setDouble(3, startMeasure);
-        statement.setDouble(4, endMeasure);
-        statement.setString(5, streetClass);
-        statement.setInt(6, numLanes);
-        statement.setBoolean(7, oneWay);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, roadName);
+            statement.setString(2, roadQualifier);
+            statement.setDouble(3, startMeasure);
+            statement.setDouble(4, endMeasure);
+            statement.setString(5, streetClass);
+            statement.setInt(6, numLanes);
+            statement.setBoolean(7, oneWay);
 
-        statement.execute();
+            statement.execute();
+        }
     }
 
     /**
@@ -77,14 +79,15 @@ public class DBClient {
                 (?, ?, ?, ?, ?)
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, roadName);
-        statement.setString(2, roadQualifier);
-        statement.setDouble(3, startMeasure);
-        statement.setDouble(4, endMeasure);
-        statement.setInt(5, maxKmPerHour);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, roadName);
+            statement.setString(2, roadQualifier);
+            statement.setDouble(3, startMeasure);
+            statement.setDouble(4, endMeasure);
+            statement.setInt(5, maxKmPerHour);
 
-        statement.execute();
+            statement.execute();
+        }
     }
 
     /**
@@ -102,15 +105,16 @@ public class DBClient {
                 (?, ?, ?, ?, ?, ?)
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, roadName);
-        statement.setString(2, roadQualifier);
-        statement.setDouble(3, startMeasure);
-        statement.setString(4, schoolName);
-        statement.setString(5, effectiveDaysDesc);
-        statement.setString(6, effectiveTimesDesc);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, roadName);
+            statement.setString(2, roadQualifier);
+            statement.setDouble(3, startMeasure);
+            statement.setString(4, schoolName);
+            statement.setString(5, effectiveDaysDesc);
+            statement.setString(6, effectiveTimesDesc);
 
-        statement.execute();
+            statement.execute();
+        }
     }
 
     /**
@@ -126,11 +130,12 @@ public class DBClient {
                 (?, ?)
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, zoneID);
-        statement.setString(2, name);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, zoneID);
+            statement.setString(2, name);
 
-        statement.execute();
+            statement.execute();
+        }
     }
 
     /**
@@ -146,11 +151,12 @@ public class DBClient {
                 (?, ?)
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, name);
-        statement.setString(2, websiteUrl);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, name);
+            statement.setString(2, websiteUrl);
 
-        statement.execute();
+            statement.execute();
+        }
     }
 
     /**
@@ -167,11 +173,12 @@ public class DBClient {
                 (?, ?)
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, divisionName);
-        statement.setInt(2, wardID);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, divisionName);
+            statement.setInt(2, wardID);
 
-        statement.execute();
+            statement.execute();
+        }
     }
 
     /**
@@ -187,10 +194,11 @@ public class DBClient {
                 (?)
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, neighbourhoodName);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, neighbourhoodName);
 
-        statement.execute();
+            statement.execute();
+        }
     }
 
     /**
@@ -206,11 +214,12 @@ public class DBClient {
                 (?, ?)
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, neighbourhoodName);
-        statement.setInt(2, wardID);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, neighbourhoodName);
+            statement.setInt(2, wardID);
 
-        statement.execute();
+            statement.execute();
+        }
     }
 
     /**
@@ -229,22 +238,23 @@ public class DBClient {
                  neighbourhood, neighbourhoodWard, schoolDivision, schoolDivisionWard,
                  plowZone)
             VALUES
-                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setInt(1, streetNumber);
-        statement.setDouble(2, latitude);
-        statement.setDouble(3, longitude);
-        statement.setString(4, roadName);
-        statement.setString(5, roadQualifier);
-        statement.setString(6, neighbourhood);
-        statement.setInt(7, neighbourhoodWard);
-        statement.setString(8, schoolDivision);
-        statement.setInt(9, schoolDivisionWard);
-        statement.setString(10, plowZone);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setInt(1, streetNumber);
+            statement.setDouble(2, latitude);
+            statement.setDouble(3, longitude);
+            statement.setString(4, roadName);
+            statement.setString(5, roadQualifier);
+            statement.setString(6, neighbourhood);
+            statement.setInt(7, neighbourhoodWard);
+            statement.setString(8, schoolDivision);
+            statement.setInt(9, schoolDivisionWard);
+            statement.setString(10, plowZone);
 
-        statement.execute();
+            statement.execute();
+        }
     }
 
     /**
@@ -302,26 +312,33 @@ public class DBClient {
             ORDER BY startMeasure
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, roadName);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, roadName);
 
-        ResultSet results = statement.executeQuery();
+            ResultSet results = statement.executeQuery();
 
-        ArrayList<RoadInfo> roadInfos = new ArrayList<>();
-        while (results.next()) {
-            roadInfos.add(new RoadInfo(
-                    results.getString("roadName"),
-                    results.getString("roadQualifier"),
-                    results.getInt("maxKmPerHour"),
-                    results.getInt("numLanes"),
-                    results.getString("streetClass"),
-                    results.getBoolean("oneWay"),
-                    results.getDouble("startMeasure"),
-                    results.getDouble("endMeasure")
-            ));
+
+            ArrayList<RoadInfo> roadInfos = new ArrayList<>();
+            while (results.next()) {
+                Integer maxKmPerHour = results.getInt("maxKmPerHour");
+                if (results.wasNull()) {
+                    maxKmPerHour = null;
+                }
+
+                roadInfos.add(new RoadInfo(
+                        results.getString("roadName"),
+                        results.getString("roadQualifier"),
+                        maxKmPerHour,
+                        results.getInt("numLanes"),
+                        results.getString("streetClass"),
+                        results.getBoolean("oneWay"),
+                        results.getDouble("startMeasure"),
+                        results.getDouble("endMeasure")
+                ));
+            }
+
+            return roadInfos;
         }
-
-        return roadInfos;
     }
 
     /***
@@ -354,17 +371,18 @@ public class DBClient {
             	numLanes = ?;
         """;
 
-        PreparedStatement statement = this.db.prepareStatement(query);
-        statement.setString(1, roadName);
-        statement.setString(2, roadQualifier);
-        statement.setInt(3, numLanes);
+        try (PreparedStatement statement = this.db.prepareStatement(query)) {
+            statement.setString(1, roadName);
+            statement.setString(2, roadQualifier);
+            statement.setInt(3, numLanes);
 
-        ResultSet results = statement.executeQuery();
+            ResultSet results = statement.executeQuery();
 
-        if (!results.next()) {
-            return 0.00;
+            if (!results.next()) {
+                return 0.00;
+            }
+
+            return results.getDouble("totalPercentage");
         }
-
-        return results.getDouble("totalPercentage");
     }
 }

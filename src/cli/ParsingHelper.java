@@ -20,6 +20,17 @@ public class ParsingHelper {
         return text;
     }
 
+    public static String getOptionalString(Scanner in, String prompt) {
+        System.out.print(prompt);
+        String text = in.nextLine().trim();
+
+        if (text.isEmpty()) {
+            return null;
+        }
+
+        return text;
+    }
+
     public static int getInt(Scanner in, String prompt) {
         String raw = null;
         Integer number = null;

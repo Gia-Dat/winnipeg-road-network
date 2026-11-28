@@ -7,14 +7,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        try {
+        try (Connection conn = new DBConnection().connection()) {
             // Initialize dependencies
             Scanner in = new Scanner(System.in);
-            Connection conn = new DBConnection().connection();
             DBClient dbl = new DBClient(conn);
 
             // Run the REPL
             CommandExecutor.run(in, dbl);
+
+            in.close();
         } catch (Exception e) {
             ExceptionHandler.printErrorMsg(e);
         }

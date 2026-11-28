@@ -51,6 +51,8 @@ public class InsertRoad implements Command {
                     "Could not create road because one already exists with the " +
                     "same identifier."
                 );
+            } else {
+                throw e;
             }
         }
     }

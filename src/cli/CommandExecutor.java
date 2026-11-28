@@ -1,5 +1,9 @@
 package cli;
 import cli.commands.*;
+import cli.commands.inserts.InsertRoad;
+import cli.commands.inserts.InsertSchoolZone;
+import cli.commands.inserts.InsertSegment;
+import cli.commands.inserts.InsertSpeedLimit;
 import database_client.DBClient;
 import java.util.Scanner;
 
@@ -16,6 +20,8 @@ public class CommandExecutor {
         new ComputeLanePercentage(),
         new InsertRoad(),
         new InsertSegment(),
+        new InsertSpeedLimit(),
+        new InsertSchoolZone(),
         new DeleteAll()
     };
 

@@ -1,5 +1,6 @@
-package cli.commands;
+package cli.commands.inserts;
 import cli.ParsingHelper;
+import cli.commands.Command;
 import database_client.DBClient;
 import java.sql.SQLException;
 import java.util.Scanner;

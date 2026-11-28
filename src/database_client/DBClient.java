@@ -288,7 +288,7 @@ public class DBClient {
                 segment.oneway,
                 IIF(segment.startMeasure > speedLimit.startMeasure OR speedLimit.startMeasure IS NULL,
                     segment.startMeasure, speedLimit.startMeasure) AS startMeasure, -- i.e. GREATEST()
-                IIF(segment.endMeasure > speedLimit.endMeasure OR speedLimit.endMeasure IS NULL,
+                IIF(segment.endMeasure < speedLimit.endMeasure OR speedLimit.endMeasure IS NULL,
                     segment.endMeasure, speedLimit.endMeasure) AS endMeasure -- i.e. LEAST()
             FROM road LEFT JOIN segment ON
                 road.name = segment.roadName AND

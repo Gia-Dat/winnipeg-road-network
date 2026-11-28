@@ -1,5 +1,6 @@
 package cli;
 import cli.commands.*;
+import cli.commands.inserts.*;
 import database_client.DBClient;
 import java.util.Scanner;
 
@@ -16,6 +17,14 @@ public class CommandExecutor {
         new ComputeLanePercentage(),
         new InsertRoad(),
         new InsertSegment(),
+        new InsertSpeedLimit(),
+        new InsertSchoolZone(),
+        new InsertPlowZone(),
+        new InsertSchoolDivision(),
+        new InsertSchoolDivisionWard(),
+        new InsertNeighbourhood(),
+        new InsertNeighbourhoodWard(),
+        new InsertAddress(),
         new DeleteAll()
     };
 

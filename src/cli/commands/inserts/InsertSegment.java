@@ -1,12 +1,14 @@
-package cli.commands;
+package cli.commands.inserts;
 import cli.ParsingHelper;
+import cli.commands.Command;
 import database_client.DBClient;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class InsertSegment implements Command {
     private final String KEYWORD = "insertSegment";
-    private final String DESCRIPTION = "Adds a segment to the database for a given road.";
+    private final String DESCRIPTION =
+            "Adds a segment to the database for a given road.";
 
     @Override
     public String getKeyword() {
